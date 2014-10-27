@@ -21,7 +21,7 @@ module GithubScore
 
     def parser
       @parser = OptionParser.new do |opts|
-        opts.banner = "Usage #TODO"
+        opts.banner = "Usage"
 
         opts.on("-u", "--user USER", "Github username, default #{@options[:user]}") {|user| @options[:user] = user}
 
