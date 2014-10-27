@@ -15,7 +15,8 @@ module GithubScore
         :CreateEvent => "2",
         :Other => "1"
       }
-      parse!
+      calcuate
+      # parse!
     end
 
     def parser
@@ -39,6 +40,21 @@ module GithubScore
 
     def parse!
       parser.parse! @argv
+    end
+
+    def calcuate
+      parse!
+      stats = GithubScore::Score.group_issue_types(@options[:user])
+      ary = []
+      stats.each {|k, v| ary << (v.to_i * multiplier(k).to_i)}
+      total = ary.inject(0, :+)
+      puts "#{@options[:user]} has the score of #{total}"
+    end
+
+    private
+
+    def multiplier(key)
+      @options.fetch(key) {@options[:Other].to_i}
     end
 
   end

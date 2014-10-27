@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "github_score"
+
+GithubScore::CLI.new(ARGV)

@@ -2,6 +2,9 @@ require "spec_helper"
 
 describe GithubScore::CLI do
 
+  let!(:body) {fixture("tenderlove.json").read}
+  before {stub_request(:get, "https://github.com/tenderlove.json").to_return(:body => body, :headers => {:content_type => 'application/json; charset=utf-8'}) }
+
   it "should parse the short cli options" do
     cli = GithubScore::CLI.new(%w(--u dhh -c 10 -P 10 -p 10 -w 10 -o 10))
     expect(cli.options[:user]).to eq("dhh")
